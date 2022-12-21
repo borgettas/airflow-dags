@@ -1,4 +1,5 @@
-FROM apache/airflow:1.10.15-python3.8 as base
+# FROM apache/airflow:1.10.15-python3.8 as base
+FROM apache/airflow:2.5.0-python3.10 as base
 
 ARG GROUP_ID
 ARG USER_ID
