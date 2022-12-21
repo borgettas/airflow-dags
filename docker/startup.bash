@@ -13,7 +13,16 @@ if [ -f "$WEBSERVER_PID" ]; then
 fi
 
 echo "Setting up airflow metada db"
-airflow upgradedb
+airflow db upgrade
+
+echo "Create user"
+airflow users create \
+    --username admin \
+    --password admin \
+    --firstname admin \
+    --lastname admin \
+    --role Admin \
+    --email admin@email.com
 
 echo "Starting services"
 airflow scheduler -D & airflow webserver -p 8080

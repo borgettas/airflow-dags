@@ -13,8 +13,8 @@ build:
 		--tag $(image);
 
 
-.PHONY: airflowd
-airflowd:
+.PHONY: airflowc
+airflowc:
 	docker container create \
 		--env AIRFLOW_HOME=$(airflow_home) \
 		--env AIRFLOW__CORE__LOAD_EXAMPLES=FALSE \
@@ -29,7 +29,7 @@ airflowd:
 			$(airflow_home)/docker/startup.bash
 
 	docker container start $(container)
-
+			
 
 .PHONY: clean
 clean: ##@miscellaneous Remove created artifacts
@@ -44,8 +44,11 @@ stop: ##@docker Stop Airflow container
 
 .PHONY: start
 start:
-	make build && make airflowd
+	make build && make airflowc
 
+.PHONY: restart
+restart:
+	make stop && make clean && make build && make airflowc
 
 .PHONY: finish
 finish:
