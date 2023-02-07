@@ -9,13 +9,19 @@ ENV USER_HOME_DIR=/home/$USER
 
 USER root
 
+RUN apt-get update && \
+    apt-get -y install sudo
+
+# RUN useradd -m airflow && echo "airflow:airflow" | chpasswd && adduser airflow sudo
+
 RUN mkdir -p /opt/airflow/
 COPY . /opt/airflow
 
 RUN chown -R "${USER}" /opt/airflow/ && \
-    chmod +x /opt/airflow/docker/*.bash
+    chmod +x /opt/airflow/docker/*.bash && \
+    chmod 777 /opt/airflow/dags/
 
-RUN mkdir /opt/lala
+# RUN echo 'airflow:airflow' | chpasswd
 
 USER ${USER}
 
